@@ -15,10 +15,10 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    image: {
+    /*image: {
       type: DataTypes.STRING,
       allowNull: false
-    },
+  },*/
     hp: {
       type: DataTypes.INTEGER,
       allowNull: false
