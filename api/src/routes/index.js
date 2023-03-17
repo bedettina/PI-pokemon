@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const {Pokemon, Type, Pokemons_Types } = require ('../db');
+const {Pokemon, Type, Pokemons_Types } = require ('../db.js');
 const axios = require('axios')
 const { Op } = require("sequelize");
 
@@ -41,15 +41,15 @@ await Promise.all(pokemonsHere.map(async (pok) => {
   const response = await axios.get(pok);
   const newPokemon = {
     name: response.data.name,
+    image: response.data.sprites.other.dream_world.front_default ? response.data.sprites.other.dream_world.front_default : response.data.sprites.front_default,
     hp: response.data.stats[0].base_stat,
     attack: response.data.stats[1].base_stat,
     defense: response.data.stats[2].base_stat,
     speed: response.data.stats[5].base_stat,
     height: response.data.height,
     weight: response.data.weight,
-    createdInDb: false // Seteado en falso porque no estaba cread oen la DB
   };
-  const [pokemonInstance, created] = await Pokemon.findOrCreate({ //el findOrCreate busca con el "where" a ver si hay algún pokemon con el mismo nombre que la instancia de newPokemon. Si está, lo retorna, y sino, se crea uno nuevo usando la opción "default" y luego es retornado. La variablae created indica si se creó una nuva instancia o no.
+  const [pokemonInstance, created] = await Pokemon.findOrCreate({ //el findOrCreate busca con el "where" a ver si hay algún pokemon con el mismo nombre que la instancia de newPokemon. Si está, lo retorna, y sino, se crea uno nuevo usando la opción "default" con los valores que indica el default, y luego es retornado. La variablae created indica si se creó una nuva instancia o no.
     where: { name: newPokemon.name },
     defaults: newPokemon
   }); // Usamos findOrCreate para no estar creándolos cada vez que los traemos.

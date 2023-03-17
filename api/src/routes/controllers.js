@@ -24,6 +24,7 @@ const getAllPokemons = async() => {
         pokemoncitos.push(
         { 
             name: response.data.name,
+            image: response.data.sprites.other.official_artwork,
             hp: response.data.stats[0].base_stat,
             attack: response.data.stats[1].base_stat,
             defense: response.data.stats[2].base_stat,
