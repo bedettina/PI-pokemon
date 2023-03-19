@@ -13,7 +13,7 @@ module.exports = (sequelize) => {
 
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     image: {
       type: DataTypes.STRING,
@@ -21,15 +21,15 @@ module.exports = (sequelize) => {
   },
     hp: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     attack: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.INTEGER,
+      allowNull: true,
     },
     defense: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
     },
     speed: {
       type: DataTypes.INTEGER,

@@ -39,8 +39,8 @@ const getAllPokemons = async() => {
     const pokemonsHere = await getPokemonUrls()
     await Promise.all(pokemonsHere.map(async (pok) => { 
         const response = await axios.get(pok);
-        pokemoncitos.push(
-        {   
+        const types = response.data.types.map((type) => type.type.name);
+        pokemoncitos.push({  
           id: response.data.id,
           name: response.data.name,
           image: response.data.sprites.other.dream_world.front_default ? response.data.sprites.other.dream_world.front_default : response.data.sprites.front_default,
@@ -50,11 +50,14 @@ const getAllPokemons = async() => {
           speed: response.data.stats[5].base_stat,
           height: response.data.height,
           weight: response.data.weight,
-        })
-    }));
+          types: types,
+        });
+    })
+    );
     console.log(pokemoncitos)
     return pokemoncitos;
-}
+  }
+
 
 /* Código original sin instanciar en la DB
 
@@ -82,6 +85,7 @@ await Promise.all(pokemonsHere.map(async (pok) => {
 console.log(pokemoncitos)
 return pokemoncitos;
 }*/
+
 
 const getAllTypes = async() => {
   let types = []
@@ -115,7 +119,7 @@ const getDBinfo = async() => {
 }
 
 const getAllDbAndApi = async () => {
-    const [apiInfo, dbInfo] = await Promise.all([getAllPokemons(), getDBinfo()]); // hacemos destructuring para crear las dos variables a la ves y hay dos promesas que se tienen que resolver.
+    const [apiInfo, dbInfo] = await Promise.all([getAllPokemons(), getDBinfo()]); // hacemos destructuring para crear las dos variables a la vez y hay dos promesas que se tienen que resolver.
     const allInfo = [...apiInfo, ...dbInfo]; //concatenamos la info
     return allInfo; //la devolvemos
   };
@@ -160,8 +164,27 @@ router.get('/pokemons', async (req, res, next) => {
       next(error);
     }
   });
+
+  /*router.get('/types', async(req,res, next) => {
+    
+    const typesHere = await getAllTypes();
+    
+    const typesAll = []
+
+    await Promise.all(typesHere.map(async (typ) => { 
+      const newType = {
+       id: data.typ.id,
+       name: data.typ.name
+      };
+      const [typeInstance, created] = await Type.findOrCreate({
+        where: { name: newType.name },
+        defaults: newType
+      }); // Usamos findOrCreate para no estar creándolos cada vez que los traemos.
+        typesAll.push(typesAll);
+  });*/
   
-// http://localhost:3001/pokemons/88dd207f-7a61-46f8-bb50-a0a1b391ce7d
+  
+// http://localhost:3001/pokemons/622
 
   router.get('/pokemons/:idPokemon', async (req, res) => {
     let { idPokemon } = req.params;
@@ -181,7 +204,43 @@ router.get('/pokemons', async (req, res, next) => {
       }
 }); 
 
-  
+router.post('/pokemons', async (req, res) => {
+  const { name, image, hp, attack, defense, speed, height, weight, types } = req.body;
+
+try {
+
+  const allPokes = await getAllDbAndApi();
+  const filteredPoke = allPokes.find((e) => e.name === name)
+
+  if (filteredPoke.length !== 0) {
+    return res.status(409).send('Este pokemon ya existe');
+  }
+
+  else {
+    const newPoke= await Pokemon.create({
+      name, 
+      image, 
+      hp, 
+      attack, 
+      defense, 
+      speed, 
+      height, 
+      weight,
+    });
+    const typeList = await Type.findAll({
+      where: {
+        name: types
+      }
+    });
+    await newPoke.addTypes(typeList);
+    res.status(201).send('Pokemon creado correctamente');
+    return newPoke;
+  }
+} catch (error) {
+  console.log(error);
+  res.status(500).send('Error en el servidor');
+}
+}); 
 
 module.exports = router;
 
@@ -202,4 +261,54 @@ router.get('/pokemons', async (req, res, next) => {
       next(error);
     }
   });
+  */
+
+  /* getAllPokemons sin types
+
+  const getAllPokemons = async() => {
+    const pokemoncitos = []
+    const pokemonsHere = await getPokemonUrls()
+    await Promise.all(pokemonsHere.map(async (pok) => { 
+        const response = await axios.get(pok);
+        const types = response.data.types.map((type) => type.type.name);
+        pokemoncitos.push(
+        {   
+          id: response.data.id,
+          name: response.data.name,
+          image: response.data.sprites.other.dream_world.front_default ? response.data.sprites.other.dream_world.front_default : response.data.sprites.front_default,
+          hp: response.data.stats[0].base_stat,
+          attack: response.data.stats[1].base_stat,
+          defense: response.data.stats[2].base_stat,
+          speed: response.data.stats[5].base_stat,
+          height: response.data.height,
+          weight: response.data.weight,
+          types: types,
+        })
+    }));
+    console.log(pokemoncitos)
+    return pokemoncitos;
+}*/
+
+/* Intento de linkear types de los pokemones con la tabla relacional
+
+  const linkPokemonWithTypes = async (pokemonsArray) => {
+    const typesArray = await Type.findAll(); // traerte todos los types
+    const typesMap = typesArray.reduce((acc, type) => {
+      acc[type.name] = type.id;
+      return acc;
+    }, {});
+  
+    // Guardarlos en la tabla relacional
+    await Promise.all(
+      pokemonsArray.map(async (pokemon) => {
+        const typesIds = pokemon.types.map((type) => typesMap[type]);
+        await Pokemon_Types.bulkCreate(
+          typesIds.map((typeId) => ({
+            pokemon_id: pokemon.id,
+            type_id: typeId,
+          }))
+        );
+      })
+    );
+  };
   */
