@@ -20,23 +20,21 @@ export default function PokemonDetail({id}){
     return (
     <div className={styles.container}>
         <h1>{thisPoke.name}</h1>
-        <h4>Speed:</h4>
-        <p> {thisPoke.speed}</p>
         <h4>Image:</h4>
         <p> <img src={thisPoke.image} alt={thisPoke.name} width="200" height="200"/></p>
-        <h4>Attack:</h4>
-        <p>{thisPoke.attack}</p>
-        <h4>Weight:</h4>
-        <p> {thisPoke.weight}</p>
         <h4>HP:</h4>
         <p> {thisPoke.hp}</p>
+        <h4>Attack:</h4>
+        <p>{thisPoke.attack}</p>
         <h4>Defense:</h4>
         <p> {thisPoke.defense}</p>
-        <h4>Type:</h4>
-{/*        <h5> {thisCountry.activities.name}</h5>
-        <h5> {thisCountry.activities.difficulty}</h5>
-        <h5> {thisCountry.activities.duration}</h5>
-    <h5> {thisCountry.activities.season}</h5>*/}
+        <h4>Speed:</h4>
+        <p> {thisPoke.speed}</p>
+        <h4>Height:</h4>
+        <p> {thisPoke.height}</p>
+        <h4>Weight:</h4>
+        <p> {thisPoke.weight}</p>
+        <h4>Types:</h4>
     <div>{thisPoke.types?.map(t => (
                         <div className={styles.type}>
                            <p>{t.name}</p>

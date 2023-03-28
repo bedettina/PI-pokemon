@@ -78,6 +78,9 @@ return (
   Reload all Pokemons
 </button>
 
+<div>
+  <SearchBar />
+</div>
 
 <div>
 <select value={selectedAlphabet} onChange={e => handleFilterAZ(e)}>
@@ -117,9 +120,10 @@ pagination = {pagination} />
 
             <div key={el.id}>
                 <Cards 
+                id={el.id}
                 image={el.image}
                 name={el.name}
-                types={el.types.join(", ")}
+                types={el.types.join(", ") || []}
                 />
             </div>
                 )

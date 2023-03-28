@@ -1,4 +1,4 @@
-import { GET_POKEMONS, GET_TYPES, FILTER_BY_ORIGIN, FILTER_BY_TYPE, FILTER_BY_AZ, GET_POKE_DETAIL } from '../actions/actions.js';
+import { GET_POKEMONS, GET_TYPES, FILTER_BY_ORIGIN, FILTER_BY_TYPE, FILTER_BY_AZ, GET_POKE_DETAIL, GET_NAME_POKE, POST_POKEMON } from '../actions/actions.js';
 
 const initialState = {
     pokemons: [],
@@ -96,6 +96,15 @@ function rootReducer(state= initialState, action) {
                       };
                     }
                     break;
+            case GET_NAME_POKE:
+              return {
+                  ...state,
+                  pokemons: action.payload //meto en este estado porque es el que estoy renderizando. En definitiva es un filtrado más sólo que lo hicimos en el back
+                  }
+            case POST_POKEMON:
+          return {
+            ...state,
+          }
 
             default:
             return state;

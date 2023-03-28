@@ -7,11 +7,13 @@ export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN';
 export const FILTER_BY_TYPE = 'FILTER_BY_TYPE';
 export const FILTER_BY_AZ = 'FILTER_BY_AZ';
 export const GET_POKE_DETAIL = 'GET_POKE_DETAIL';
+export const GET_NAME_POKE = 'GET_NAME_POKE';
+export const POST_POKEMON = 'POST_POKEMON'
 
 export function getPokemons(){
     return async function(dispatch){
         try {
-        const data = await axios.get("http://localhost:3001/pokemons")
+        const data = await axios.get("http://localhost:3001/")
         
         const filteredData = data.data.map(({ id, idAPI, name, image, hp, speed, attack, weight, height }) => ({ id, idAPI, name, image, hp, speed, attack, weight, height }));
 
@@ -107,6 +109,53 @@ return async function(dispatch){
         });
     } catch(e){
         console.log(e)
+    }
+}
+}
+
+export function getNamePoke(name){
+    return async function(dispatch){
+        try {
+            var json = await axios.get('http://localhost:3001/?name=' + name)
+
+            const filteredDat = json.data.map(({ id, idAPI, name, image, hp, speed, attack, weight, height }) => ({ id, idAPI, name, image, hp, speed, attack, weight, height }));
+
+
+            const filteredArra = json.data
+            .filter(pokemon => pokemon.types)
+            .map(pokemon => ({
+            name: pokemon.name,
+            types: pokemon.types.map(type => type.name)
+            }));
+
+            const combinedArra = filteredArra.reduce((acc, curr) => {
+            const pokemon = filteredDat.find(p => p.name === curr.name);
+            if (pokemon) {
+            acc.push({ ...pokemon, types: curr.types });
+            }
+            return acc;
+            }, []);
+
+            return dispatch({
+                type: "GET_NAME_POKE",
+                payload: combinedArra
+            })
+        }
+        catch (error) {
+            console.log(error)
+        }
+    }
+}
+
+export function postPokemon(payload){
+    return async function(dispatch){
+        try { 
+        await axios.post('http://localhost:3001/pokemons', payload); //en esta ruta es donde quiero hacer el post del payload, va como segundo argumento
+        return dispatch({
+            type: 'POST_POKEMON',
+              });
+    } catch(error){
+        alert('Post failed!');
     }
 }
 }
