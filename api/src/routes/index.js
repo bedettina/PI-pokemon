@@ -170,7 +170,7 @@ const getAllDbAndApi = async () => {
 //contemplamos name también en la ruta principal 
 // http://localhost:3001/pokemons?name=bulbasaruso
 
-router.get('/pokemons', async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   if(req.query.name) { 
     let { name } = req.query;
     let pokemones = await Pokemon.findAll({
