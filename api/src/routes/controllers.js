@@ -1,4 +1,4 @@
-const axios = require("axios");
+/*const axios = require("axios");
 const { Pokemon, Type } = require("../db");
 
 const getPokemonUrls = async() => {
@@ -79,8 +79,9 @@ const getApiInfo = async () => {
       url = data.next;
     }
     return pokemonUrls;
-  } solución original de Rubén*/ 
+  } solución original de Rubén 
   module.exports = {
     getPokemonUrls,
     getAllPokemons,
   };
+  */

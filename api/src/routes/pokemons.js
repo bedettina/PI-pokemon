@@ -1,4 +1,4 @@
-const { Router } = require("express");
+/*const { Router } = require("express");
 const { 
     getPokemonUrls,
     getAllPokemons,
@@ -24,7 +24,7 @@ router.get('/pokemons', async (req, res, next) => {
       next(error);
     }
   });
-*/
   
-
+  
   module.exports = router;
+  */
