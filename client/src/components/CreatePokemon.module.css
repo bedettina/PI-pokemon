@@ -1,0 +1,33 @@
+.form {
+    border-radius: 3%;
+    margin: 40px;
+    background-color: rgba(255, 255, 255, 0.743);
+    min-height: 400px;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    display: inline-block;
+}
+
+.button {
+    color: rgb(187, 216, 20);
+    margin-top: 20px;
+    float: center;
+    padding: 8px 12px;
+    text-decoration: none;
+    border-radius: 5px;
+    border-color: rgba(240, 248, 255, 0.397);
+    background-color: rgba(31, 30, 30, 0.52);
+    color: white;
+}
+
+.button:hover {
+    background-color: rgb(3, 3, 3);
+    color: white;
+    cursor: pointer
+  }
+
+  .error {
+    color: red
+  }

@@ -70,7 +70,7 @@ return (
   <h1>Todos los pokemones que se te ocurran</h1>
     <h2> y los que no se te ocurran también.</h2>
 
-<Link to= '/createpokemon'>
+<Link to= '/createpokemons'>
   <button>Create your own Pokemon!</button>
 </Link>
 
