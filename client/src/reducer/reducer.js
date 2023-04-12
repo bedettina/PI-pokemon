@@ -70,12 +70,14 @@ function rootReducer(state= initialState, action) {
                 return {
                      ...state,
                     pokemons: state.pokemons.sort(function (a, b) {
+                      const aname = a.name.toLowerCase();
+                      const bname = b.name.toLowerCase();
                           // ordena de la A a la Z
-                        if (a.name > b.name) {
+                        if (aname > bname) {
                             // si el nombre de a es mayor que el de b
                             return 1; // b
                           }
-                        if (b.name > a.name) {
+                        if (bname > aname) {
                             // si el nombre de b es mayor que el de a
                             return -1; // a
                           }
@@ -87,10 +89,12 @@ function rootReducer(state= initialState, action) {
                       return {
                         ...state,
                         pokemons: state.pokemons.sort(function (a, b) {
-                          if (a.name > b.name) {
+                          const aname = a.name.toLowerCase();
+                          const bname = b.name.toLowerCase();
+                          if (aname > bname) {
                             return -1;
                           }
-                          if (b.name > a.name) {
+                          if (bname > aname) {
                             return 1;
                           }
                           return 0;
