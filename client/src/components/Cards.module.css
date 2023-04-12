@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/Raleway-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+.cardcontainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    height: 320px;
+    width: 200px;
+    overflow: hidden;
+    font-family: 'Raleway', sans-serif;
+  }
+
+  .cardcontainer:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  }
+  
+  .card {
+    border: 1px solid #e6e6e6;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    margin: 10px;
+    padding: 10px;
+    flex-basis: 30%;
+    background-color: rgba(201, 227, 248, 0.5);
+    font-family: 'Raleway', sans-serif;
+  }
+
+  .card_name {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .card_link {
+    text-decoration: none; /* Para sacarle el subrayado al link */
+    color: inherit; /* Para sacarle el color azul y purple */
+  }
+  
+  .card_image {
+    margin-bottom: 20px;
+    object-fit: contain;
+  }
+  
+  .card_types {
+    font-size: 16px;
+    color: #666;
+    object-fit: contain;
+  }

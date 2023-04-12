@@ -8,7 +8,9 @@ export const FILTER_BY_TYPE = 'FILTER_BY_TYPE';
 export const FILTER_BY_AZ = 'FILTER_BY_AZ';
 export const GET_POKE_DETAIL = 'GET_POKE_DETAIL';
 export const GET_NAME_POKE = 'GET_NAME_POKE';
-export const POST_POKEMON = 'POST_POKEMON'
+export const POST_POKEMON = 'POST_POKEMON';
+export const ADD_FILTER = 'ADD_FILTER';
+export const REMOVE_FILTER = 'REMOVE_FILTER';
 
 export function getPokemons(){
     return async function(dispatch){
@@ -160,7 +162,37 @@ export function postPokemon(payload){
 }
 }
 
+export function handleAddFilter(filter){
+    return async function(dispatch){
+        dispatch({ 
+            type: "ADD_FILTER", 
+            filter });
+  };
+  }
+
+  
+export function handleRemoveFilter(filter){
+    return async function(dispatch){
+        dispatch({ 
+            type: "REMOVE_FILTER", 
+            filter });
+  };
+  }
+
+
 /* filteredArray V2:
 const filteredArray = data.filter(pokemon => pokemon.types)
 .map(({ name, types }) => ({ name, types: types.map(type => type.name) }));
+
+return async function(dispatch){
+    try {
+        let pokeDetail = await axios.get('http://localhost:3001/pokemons/' + id) //también puede ser ('/characters/' + id)
+        return dispatch({
+            type: 'GET_POKE_DETAIL',
+            payload: pokeDetail.data
+        });
+    } catch(e){
+        console.log(e)
+    }
+}
 */

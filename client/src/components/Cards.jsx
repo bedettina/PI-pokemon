@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import styles from './Cards.module.css';
 
 export default function Cards({id, name, image, types}) {
 
@@ -14,11 +15,12 @@ export default function Cards({id, name, image, types}) {
     }*/
 
     return (
-        <div>
-             <Link to={'/pokemons/' + id}>
-                <h3>{name}</h3></Link>
-            <img src={image} alt="img not found" width='350px' height='200px' />
-            <div>Tipos: {types}</div>
+        <div className={`${styles.cardcontainer} ${styles.card}`}>
+             <Link to={'/pokemons/' + id} className={styles.card_link}>
+                <h3 className={styles.card_name}>{name}</h3>
+            <img className={styles.card_image} src={image} alt="img not found" width='200px' height='200px' />
+            <div className={styles.card_types}>Types: {types}</div>
+            </Link>
         </div>
     );
 }

@@ -1,32 +1,103 @@
+@font-face {
+  font-family: 'Raleway', sans-serif;
+  src: url('../fonts/Raleway-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+} 
+
+.title {
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+} 
+
 .container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  background-color: #f6f8f8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
   }
 
-h1, h4 {
-    margin: 10px;
-    text-align: center;
-    font-weight: bold;
-    text-transform: uppercase;
+  .pokecard {
+    background-color: rgba(201, 227, 248, 0.5);
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-gap: 10px;
+  grid-template-areas:
+    "h1 h1"
+    "img img"
+    "h4 p"
+    "h4 p";
+    font-family: 'Raleway', sans-serif;
+    width: 800px;
   }
 
-p {
-    margin: 5px;
-    text-align: center;
+.pokecard h1{
+  grid-row: 1;
+  grid-column: 1 / -1;
+  font-size: 32px;
+  margin-top: 10px;
+  margin-bottom: 5px;
   }
 
-img {
-    display: block;
-    margin: 0 auto;
+  .pokecard h4 {
+    grid-column: 1 / 2;
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 5px;
+    text-align: right;
   }
 
-.type {
-    background-color: #f4f4f4;
-    color: #444;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 5px;
+  .pokecard p {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 10px;
+    grid-column: 2 / -1;
+    text-align: left;
+  }
+
+  .pokecard img {
+    grid-row: 1 / span 5;
+    grid-column: 1 / -1;
+    justify-self: center;
+    max-width: 100%;
+    height: auto;
+  }
+
+
+  .card .types {
+    grid-row: 6;
+    grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  }
+
+  .card .type {
     display: inline-block;
+    background-color: #c6c6c6;
+    color: #fff;
     font-size: 14px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+  }
+
+
+  
+  .pokecard .type {
+    display: inline-block;
+    background-color: #c6c6c6;
+    color: #1d1c1c;
+    font-size: 14px;
+    
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
   }

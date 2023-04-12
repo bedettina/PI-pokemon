@@ -19,8 +19,8 @@ export default function PokemonDetail({id}){
 
     return (
     <div className={styles.container}>
-        <h1>{thisPoke.name}</h1>
-        <h4>Image:</h4>
+        <div className={styles.pokecard}>
+        <h1 className={styles.title}>{thisPoke.name}</h1>
         <p> <img src={thisPoke.image} alt={thisPoke.name} width="200" height="200"/></p>
         <h4>HP:</h4>
         <p> {thisPoke.hp}</p>
@@ -34,13 +34,14 @@ export default function PokemonDetail({id}){
         <p> {thisPoke.height}</p>
         <h4>Weight:</h4>
         <p> {thisPoke.weight}</p>
-        <h4>Types:</h4>
+        <h4 className={styles.types}>Types:</h4>
     <div>{thisPoke.types?.map(t => (
                         <div className={styles.type}>
                            <p>{t.name}</p>
                         </div>
                         ))}
                         </div>
+        </div>
     </div>
     )
 }

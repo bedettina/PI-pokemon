@@ -1,0 +1,97 @@
+.pagination{
+    display:flex;
+    flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  }
+
+  .paginationcontainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 4px;
+  }
+
+  .pagination-item {
+    font-family: Arial, sans-serif;
+    font-size: 18px;
+    color: #333;
+    margin-right: 10px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .number {
+    width: 30px;
+    height: 30px;
+    background: rgb(222, 221, 224);
+    list-style: none;
+    padding: 4px;
+    border-radius: 15%;
+    justify-content: center;
+    align-items: center;
+    display: inline-block;
+    font-family: Arial, sans-serif; /* change the font */
+    font-size: 18px; /* adjust the font size */
+    color: #333; /* change the font color */
+    border: none; /* remove the border */
+    margin-right: 10px;
+    background-color: transparent;
+  }
+  
+  .number:hover {
+    cursor: pointer;
+    background-color: #ccc; /* change the background color on hover */
+  }
+
+
+@media screen and (min-width: 768px) {
+  .pagination {
+    justify-content: column;
+  }
+
+}
+
+
+.list {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.list:last-child {
+  margin-right: 0;
+}
+
+.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+
+.nextprevbutton {
+  background-color: rgb(80, 80, 151);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.nextprevbutton:hover{
+    cursor: pointer;
+    background-color: #ccc; /* change the background color on hover */
+
+}
+
+.nextprevbutton.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+

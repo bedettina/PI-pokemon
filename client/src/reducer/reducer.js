@@ -7,6 +7,7 @@ const initialState = {
     filteredPokes: [],
     typesToFilter: [],
     pokeDetail: [],
+    filters: []
 }
 
 function rootReducer(state= initialState, action) {
@@ -17,7 +18,8 @@ function rootReducer(state= initialState, action) {
                 ...state,
                 pokemons: action.payload, 
                 filteredPokes: action.payload,
-                typesToFilter: action.payload
+                typesToFilter: action.payload,
+                filters: action.payload
             }
 
         case GET_TYPES:
@@ -54,7 +56,7 @@ function rootReducer(state= initialState, action) {
                   };
                 }
             case FILTER_BY_TYPE:
-                const typesToFilter = state.typesToFilter; //tenemos un estado separado con todos los pokemones para no filtrar sobre lo ya filtrado
+                const typesToFilter = state.pokemons; //tenemos un estado separado con todos los pokemones para no filtrar sobre lo ya filtrado
                 const typesFiltered = action.payload === 'types' ? typesToFilter : typesToFilter.filter((c) =>{return c.types.some((a) => (a === action.payload))}); //si el value es types (o sea no se eligió ninguno) devuelve todos los pokemones, sino, se fija de devolver los que incluyan el nombre del tipo (que viene en la action type)
                 
                 return {
@@ -105,6 +107,14 @@ function rootReducer(state= initialState, action) {
           return {
             ...state,
           }
+            case "ADD_FILTER":
+              return {
+                filters: [...state.filters, action.filter],
+              };
+            case "REMOVE_FILTER":
+              return {
+                filters: state.filters.filter((filter) => filter !== action.filter),
+              };
 
             default:
             return state;

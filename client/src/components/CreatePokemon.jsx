@@ -7,10 +7,12 @@ import styles from './CreatePokemon.module.css';
 
 function validate(input) {
     let errors = {};
+    const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
+
     if(!input.name){ //si en mi estado local input no hay nada, en el objeto errors pongo un .name que retorne un string
         errors.name = "A name is required";
-    } else if(input.image && !input.image.startsWith("https://")) {
-        errors.image = "Image URL must be a valid url";
+    } else if(input.image && (!urlRegex.test(input.image))) {
+        errors.image = "Please enter a valid url";
     } else if(input.hp && (input.hp > 500 || input.hp < 1)){
         errors.hp = "HP must be a number between 1 and 500";
     } else if(input.attack && (input.attack > 500 || input.attack < 1)){
@@ -31,7 +33,6 @@ function validate(input) {
 export default function CreatePokemon(){
     const dispatch = useDispatch();
     const history = useHistory();
-    const allPokemons = useSelector((state) => state.pokemons);
     const types = useSelector((state) => state.types);
     const [errors, setErrors] = useState({});
 
@@ -118,66 +119,66 @@ export default function CreatePokemon(){
     }, [dispatch]);
 
     return(
-        <div>
-            <Link to= '/home'><button className='button'>Return to Home</button></Link>
-            <h1>Create your own pokemons!</h1>
+        <div className={styles.container}>
+            <Link to= '/home'><button className={styles.returnbutton}>Return to Home</button></Link>
+            <h2 className={styles.title}>Create your own pokemons!</h2>
 
-    <form className='form' onSubmit={e => {handleSubmit(e)}}>
-                <div>
-                    <label>Name:</label>
-                    <input type="text" value={input.name} name='name' 
-                    onChange={e => handleChange(e)} onBlur={validate}>
-                    </input>
-                    {errors.name && (<p className={styles.error}>{errors.name}</p>)}
-                    {/*Si hay algo en errors.name, entonces renderizamelo*/}
+            <form className={styles.form} onSubmit={e => {handleSubmit(e)}}>
+                <div className={styles.fields}>
+                    <label>Name:  </label>
+                        <input className={styles.inputsFields} type="text" value={input.name} name='name' 
+                        onChange={e => handleChange(e)} onBlur={validate}>
+                        </input>
+                        {errors.name && (<p className={styles.error}>{errors.name}</p>)}
+                        {/*Si hay algo en errors.name, entonces renderizamelo*/}
                 </div>
 
-                <div>
-                    <label>Image:</label>
-                    <input type="text" value={input.image} 
-                    name='image' 
-                    onChange={e => handleChange(e)} 
-                    onBlur={validate}
-                    disabled={!input.name}>
-                    </input>
-                    {errors.image && (<p className={styles.error}>{errors.image}</p>)}
-                    {/*Si hay algo en errors.name, entonces renderizamelo*/}
+                <div className={styles.fields}>
+                    <label>Image:  </label>
+                        <input className={styles.inputsFields} type="text" value={input.image} 
+                        name='image' 
+                        onChange={e => handleChange(e)} 
+                        onBlur={validate}
+                        disabled={!input.name}>
+                        </input>
+                        {errors.image && (<p className={styles.error}>{errors.image}</p>)}
+                        {/*Si hay algo en errors.name, entonces renderizamelo*/}
                 </div>
 
-                <div>
-                    <label>HP:</label>
-                    <input type='number' value={input.hp} name='hp'
-                     onChange={e => handleChange(e)}
-                     onBlur={validate}
-                    disabled={!input.image || !!errors.image}
-                    >  
-                    </input>
+                <div className={styles.fields}>
+                    <label>HP:  </label>
+                        <input className={styles.inputsFields} type='number' value={input.hp} name='hp'
+                        onChange={e => handleChange(e)}
+                        onBlur={validate}
+                        disabled={!input.image || !!errors.image}
+                        >  
+                        </input>
                     {errors.hp && (<p className={styles.error}>{errors.hp}</p>)}
                     {/*Si hay algo en errors.name, entonces renderizamelo*/}
                 </div>
 
-                <div>
-            <label>Speed:</label>
-               <input value={input.speed} name='speed' onChange={e => handleChange(e)}
-               onBlur={validate}
-               disabled={!input.hp || !!errors.hp}>
-              </input>
-              {errors.speed && (<p className={styles.error}>{errors.speed}</p>)}
+                <div className={styles.fields}>
+                    <label>Speed:  </label>
+                    <input className={styles.inputsFields} value={input.speed} name='speed' onChange={e => handleChange(e)}
+                    onBlur={validate}
+                    disabled={!input.hp || !!errors.hp}>
+                    </input>
+                    {errors.speed && (<p className={styles.error}>{errors.speed}</p>)}
                 </div>
 
-                <div>
-            <label>Defense:</label>
-               <input value={input.defense} name='defense' onChange={e => handleChange(e)}
-               onBlur={validate}
-               disabled={!input.speed || !!errors.speed}>
-              </input>
+                <div className={styles.fields}>
+                    <label>Defense:  </label>
+                    <input className={styles.inputsFields} value={input.defense} name='defense' onChange={e => handleChange(e)}
+                    onBlur={validate}
+                    disabled={!input.speed || !!errors.speed}>
+                    </input>
               {errors.defense && (<p className={styles.error}>{errors.defense}</p>)}
               {/*Si hay algo en errors.name, entonces renderizamelo*/}
                 </div>
                
-                <div>
-                    <label>Attack:</label>
-                    <input type='number' value={input.attack} name='attack'
+                <div className={styles.fields} >
+                    <label>Attack:  </label>
+                    <input className={styles.inputsFields} type='number' value={input.attack} name='attack'
                      onChange={e => handleChange(e)}
                      onBlur={validate}
                     disabled={!input.defense || !!errors.defense}>  
@@ -186,9 +187,9 @@ export default function CreatePokemon(){
                     {/*Si hay algo en errors.name, entonces renderizamelo*/}
                 </div>
 
-                <div>
-                    <label>Weight:</label>
-                    <input type='number' value={input.weight} name='weight'
+                <div className={styles.fields}>
+                    <label>Weight:  </label>
+                    <input className={styles.inputsFields} type='number' value={input.weight} name='weight'
                      onChange={e => handleChange(e)}
                      onBlur={validate}
                     disabled={!input.attack || !!errors.attack}>  
@@ -197,9 +198,9 @@ export default function CreatePokemon(){
                     {/*Si hay algo en errors.name, entonces renderizamelo*/}
                 </div>
 
-                <div>
-                    <label>Height:</label>
-                    <input type='number' value={input.height} name='height'
+                <div className={styles.fields}>
+                    <label>Height:  </label>
+                    <input className={styles.inputsFields} type='number' value={input.height} name='height'
                      onChange={e => handleChange(e)}
                      onBlur={validate}
                     disabled={!input.weight || !!errors.weight}>  
@@ -208,28 +209,31 @@ export default function CreatePokemon(){
                     {/*Si hay algo en errors.name, entonces renderizamelo*/}
                 </div>
 
-                <div>
-                <label>Types:</label>
-
-                  <select name='types' value={input.types} onChange={e => handleSelect(e)}>
+                <div className={styles.types}>
+                    <label>Types:  </label>
+                    <select name='types' value={input.types} onChange={e => handleSelect(e)}>
                     {types.map(el => (
                         <option key={el.id} value={el.name}>{el.name}</option>
                         ))
                         }
-                  </select>
-
+                    </select>
+                    
+                    
                     <div> {input.types?.map(el => (
                     <span key={el.id}>
-                    <p className='typesSelected'> {el}</p>
-                    <button className='button' onClick={(e) => handleDelete(e, el)}>x</button>
+                        <div className={styles.tag}>
+                    <p className={styles.types}> {el}</p>
+                    <button className={styles.deletebutton} onClick={(e) => handleDelete(e, el)}>X</button>
+                    </div>
+                    
                     </span> // En la fn de handleDelete no hace falta pasarle el evento como primer argumento, pero es buena práctica.
                     ))}
-                    </div>
-
                 </div>
 
+        </div>
 
-                <button type='Submit'>Create Pokemon</button>
+
+                <button className={styles.submitbuttons} type='Submit'>Create Pokemon</button>
                 
             </form>
         </div>

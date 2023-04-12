@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import Cards from './Cards.jsx';
 import SearchBar from './SearchBar.jsx';
 import Pagination from './Pagination';
+import styles from './Home.module.css'
 import { getPokemons, getTypes, filterByOrigin, filterByType, filterByAZ } from '../actions/actions.js';
 
 
@@ -34,6 +35,9 @@ const [selectedType, setSelectedType] = useState("");
 const [selectedAlphabet, setSelectedAlphabet] = useState("");
 const [selectedOrigin, setSelectedOrigin] = useState("");
 
+
+
+  //UseEffect para efectos secundarios
 useEffect(() => {
     dispatch(getPokemons()); //trae los pokes y los types
     dispatch(getTypes()); //cada vez que renderiza o hay un cambio
@@ -51,6 +55,7 @@ function handleFilterOrigin(e){
   //setPoke(e.target.value)
 }
 
+
 function handleFilterTypes(e){
   e.preventDefault();
   setSelectedType(e.target.value);
@@ -63,72 +68,102 @@ function handleFilterAZ(e){
   dispatch(filterByAZ(e.target.value));
 }
 
+
 //RENDERIZADO:
 
 return (
-  <div>
-  <h1>Todos los pokemones que se te ocurran</h1>
-    <h2> y los que no se te ocurran también.</h2>
+<div className={styles.container}>
+    <div className={`${styles.header} ${styles.headertext}`}>
+      
+      <div className={styles.bold}>
+      <p>All pokemons you can think of.</p>
+      </div>
+      <p>And also the ones you never thought of.</p>
+    </div>
 
-<Link to= '/createpokemons'>
-  <button>Create your own Pokemon!</button>
-</Link>
+    <div className={styles.search}>
+        <SearchBar />
 
-<button onClick={e=> {handleClick(e)}}>
-  Reload all Pokemons
-</button>
+        <div className={styles.loadbuttons}>
+        <div className={styles.bodies}>
+          <Link to= '/createpokemons'>
+           <button className={`${styles.generalbuttons} ${styles.bodies}`}>Create your own Pokemon!</button>
+        </Link>
+        </div>
 
-<div>
-  <SearchBar />
-</div>
+        <div className={styles.bodies}>
+          <button onClick={e=> {handleClick(e)}} className={`${styles.generalbuttons} ${styles.bodies}`}>
+            Reload all Pokemons
+          </button>
+        </div>
+      </div>
 
-<div>
-<select value={selectedAlphabet} onChange={e => handleFilterAZ(e)}>
-<optgroup label='Filter alphabetically'>
-  <option value='a-z'>A-Z order</option>
-  <option value='z-a'>Z-A order</option>
-  </optgroup>
-</select>
-</div>
+    </div>
 
-<div>
-<select value={selectedOrigin} onChange={e => handleFilterOrigin(e)}>
-  <option value='all'>All</option>
-  <option value='apiPoke'>Original Pokemons</option>
-  <option value='newPoke'>New Pokemons</option>
-</select>
-</div>
+      <div className={styles.pagination}>
+  <Pagination
+    pokesPerPage={pokesPerPage}
+    allPokemons={allPokemons.length}
+    pagination = {pagination}
+    currentPage = {currentPage}
+  />
+  </div>
 
-<div>
-<select value={selectedType} onChange={e => handleFilterTypes(e)}>
-  {/*Hicimos un estado selected Type donde el value es un strign vacío inicialmente*/}
-  <option value='types'>All Types</option>
+  {/* FILTROS */}
+  <div className={`${styles.filters} ${styles.bodies} ${styles.filtersContainer}`}>
+      <div className={styles.bodies}>
+        <select value={selectedAlphabet} onChange={e => handleFilterAZ(e)}>
+          <optgroup label='Filter alphabetically'>
+            <option value='a-z'>A-Z order</option>
+            <option value='z-a'>Z-A order</option>
+          </optgroup>
+        </select>
+      </div>
+
+    <div className={styles.bodies}>
+      <select value={selectedOrigin} onChange={e => handleFilterOrigin(e)}>
+        <optgroup label='Filter by origin'>
+        <option value='all'>All</option>
+        <option value='apiPoke'>Original Pokemons</option>
+        <option value='newPoke'>New Pokemons</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div className={styles.bodies}>
+      <select value={selectedType} onChange={e => handleFilterTypes(e)}>
+      <optgroup label='Filter by type'>
+        {/*Hicimos un estado selected Type donde el value es un strign vacío inicialmente*/}
+        <option value='types'>All Types</option>
             {allTypes.map(type => (
             <option key={type.id} value={type.name}>{type.name}</option>
           ))}
-</select>
-</div>
+          </optgroup>
+      </select>
+    </div>
+  </div>
+  
 
-<Pagination
-pokesPerPage={pokesPerPage}
-allPokemons={allPokemons.length}
-pagination = {pagination} />
-
+  {/* RENDERIZADO DE CARDS */}
+  <div className={styles.cardscontainer}>
             {currentPokes?.map((el) => {
                // borrando esta linea, tambien renderiza, "ver el porque"
                 return(
 
-            <div key={el.id}>
+            
+              <div key={el.id}>
                 <Cards 
                 id={el.id}
                 image={el.image}
                 name={el.name}
                 types={el.types.join(", ") || []}
+                cardClass={styles.pokemoncard}
                 />
-            </div>
+                
+              </div>
                 )
-              })}
-            
+            })}
+            </div>
             
 {/* El "value" te permite después usarlo como payload al despachar acciones.
 Botones/Opciones para filtrar por tipo, y por si su origen es de la API o de la base de datos (creados por nosotros desde el formulario).
