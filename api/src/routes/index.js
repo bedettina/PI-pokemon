@@ -44,7 +44,7 @@ const getAllPokemons = async() => {
     const newPokemon = {
       idAPI: response.data.id,
       name: response.data.name,
-      image: response.data.sprites.other.dream_world.front_default ? response.data.sprites.other.dream_world.front_default : response.data.sprites.front_default,
+      image: response.data.sprites.other.dream_world.front_default ? response.data.sprites.other.dream_world.front_default : response.data.sprites.other["official-artwork"].front_default,
       hp: response.data.stats[0].base_stat,
       attack: response.data.stats[1].base_stat,
       defense: response.data.stats[2].base_stat,
@@ -197,6 +197,7 @@ router.get('/', async (req, res, next) => {
           }
         });
         res.status(200).json(total);
+      
       } catch (error) {
         res.status(400).json(error);
       }
