@@ -21,7 +21,7 @@ export default function PokemonDetail({id}){
     <div className={styles.container}>
         <div className={styles.pokecard}>
         <h1 className={styles.title}>{thisPoke.name}</h1>
-        <p> <img src={thisPoke.image} alt={thisPoke.name} width="200" height="200"/></p>
+        <p> <img src={thisPoke.image} alt={thisPoke.name} width="100" height="100"/></p>
         <h4>HP:</h4>
         <p> {thisPoke.hp}</p>
         <h4>Attack:</h4>

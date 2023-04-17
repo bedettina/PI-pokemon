@@ -5,7 +5,7 @@ export const GET_POKEMONS = 'GET_POKEMONS';
 export const GET_TYPES = 'GET_TYPES';
 export const FILTER_BY_ORIGIN = 'FILTER_BY_ORIGIN';
 export const FILTER_BY_TYPE = 'FILTER_BY_TYPE';
-export const FILTER_BY_AZ = 'FILTER_BY_AZ';
+export const ORDER_BY = 'ORDER_BY';
 export const GET_POKE_DETAIL = 'GET_POKE_DETAIL';
 export const GET_NAME_POKE = 'GET_NAME_POKE';
 export const POST_POKEMON = 'POST_POKEMON';
@@ -86,12 +86,12 @@ catch(error) {
 }
 }
 
-export function filterByAZ(order){
+export function orderBy(order){
     return async function(dispatch){
         try {
 
         return dispatch({
-            type: 'FILTER_BY_AZ',
+            type: 'ORDER_BY',
             payload: order
         })
     }

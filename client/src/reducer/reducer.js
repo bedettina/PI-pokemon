@@ -1,4 +1,4 @@
-import { GET_POKEMONS, GET_TYPES, FILTER_BY_ORIGIN, FILTER_BY_TYPE, FILTER_BY_AZ, GET_POKE_DETAIL, GET_NAME_POKE, POST_POKEMON } from '../actions/actions.js';
+import { GET_POKEMONS, GET_TYPES, FILTER_BY_ORIGIN, FILTER_BY_TYPE, ORDER_BY, GET_POKE_DETAIL, GET_NAME_POKE, POST_POKEMON } from '../actions/actions.js';
 
 const initialState = {
     pokemons: [],
@@ -64,8 +64,8 @@ function rootReducer(state= initialState, action) {
                         pokemons: typesFiltered,
                     };
 
-            case FILTER_BY_AZ:
-            if (action.payload === 'a-z') {
+            case ORDER_BY:
+            if (action.payload === 'a-z' || action.payload === 'default') {
                       // si el payload es az, entonces que me devuelva el estado inicial
                 return {
                      ...state,
@@ -101,7 +101,37 @@ function rootReducer(state= initialState, action) {
                         }),
                       };
                     }
-                    break;
+
+                      if (action.payload === "asc") {
+                        return {
+                          ...state,
+                          pokemons: state.pokemons.sort(function (a, b) {
+                            if (a.attack > b.attack) {
+                              return -1;
+                            }
+                            if (b.attack > a.attack) {
+                              return 1;
+                            }
+                            return 0;
+                          }),
+                        };
+                      }
+
+                      if (action.payload === "des") {
+                        return {
+                          ...state,
+                          pokemons: state.pokemons.sort(function (a, b) {
+                            if (a.attack > b.attack) {
+                              return 1;
+                            }
+                            if (b.attack > a.attack) {
+                              return -1;
+                            }
+                            return 0;
+                          }),
+                        };
+                    }
+
             case GET_NAME_POKE:
               return {
                   ...state,

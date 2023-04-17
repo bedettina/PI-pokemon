@@ -7,7 +7,7 @@ import Cards from './Cards.jsx';
 import SearchBar from './SearchBar.jsx';
 import Pagination from './Pagination';
 import styles from './Home.module.css'
-import { getPokemons, getTypes, filterByOrigin, filterByType, filterByAZ } from '../actions/actions.js';
+import { getPokemons, getTypes, filterByOrigin, filterByType, orderBy } from '../actions/actions.js';
 
 
 export default function Home() {
@@ -32,7 +32,7 @@ const pagination = (pageNumber) => {
 
 //MÁS ESTADOS LOCALES PARA LOS FILTROS
 const [selectedType, setSelectedType] = useState("");
-const [selectedAlphabet, setSelectedAlphabet] = useState("");
+const [selectedOrder, setSelectedOrder] = useState("");
 const [selectedOrigin, setSelectedOrigin] = useState("");
 
 
@@ -62,10 +62,10 @@ function handleFilterTypes(e){
   dispatch(filterByType(e.target.value));
 }
 
-function handleFilterAZ(e){
+function handleOrderBy(e){
   e.preventDefault();
-  setSelectedAlphabet(e.target.value);
-  dispatch(filterByAZ(e.target.value));
+  setSelectedOrder(e.target.value);
+  dispatch(orderBy(e.target.value));
 }
 
 
@@ -112,10 +112,15 @@ return (
   {/* FILTROS */}
   <div className={`${styles.filters} ${styles.bodies} ${styles.filtersContainer}`}>
       <div className={styles.bodies}>
-        <select value={selectedAlphabet} onChange={e => handleFilterAZ(e)}>
-          <optgroup label='Filter alphabetically'>
+        <select value={selectedOrder} onChange={e => handleOrderBy(e)}>
+          <optgroup label='Order alphabetically'>
+            <option value='default'>Order</option>
             <option value='a-z'>A-Z order</option>
             <option value='z-a'>Z-A order</option>
+          </optgroup>
+          <optgroup label='Order by attack'>
+            <option value='asc'>Descendant</option>
+            <option value='des'>Ascendant</option>
           </optgroup>
         </select>
       </div>
@@ -123,7 +128,7 @@ return (
     <div className={styles.bodies}>
       <select value={selectedOrigin} onChange={e => handleFilterOrigin(e)}>
         <optgroup label='Filter by origin'>
-        <option value='all'>All</option>
+        <option value='all'>All origins</option>
         <option value='apiPoke'>Original Pokemons</option>
         <option value='newPoke'>New Pokemons</option>
         </optgroup>

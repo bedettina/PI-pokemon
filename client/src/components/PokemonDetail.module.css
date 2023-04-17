@@ -21,7 +21,7 @@
   .pokecard {
     background-color: rgba(201, 227, 248, 0.5);
     border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5); 
     padding: 20px;
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -34,6 +34,11 @@
     "h4 p";
     font-family: 'Raleway', sans-serif;
     width: 800px;
+  }
+
+  .pokecard:hover {
+    transform: scale(1.00);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   }
 
 .pokecard h1{
