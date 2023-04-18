@@ -15,7 +15,7 @@ export const REMOVE_FILTER = 'REMOVE_FILTER';
 export function getPokemons(){
     return async function(dispatch){
         try {
-        const data = await axios.get("http://localhost:3001/")
+        const data = await axios.get("/")
         
         const filteredData = data.data.map(({ id, idAPI, name, image, hp, speed, attack, weight, height }) => ({ id, idAPI, name, image, hp, speed, attack, weight, height }));
 
@@ -48,7 +48,7 @@ catch(error) {
 
 export function getTypes(){
     return async function(dispatch){
-        let jsona = await axios.get("http://localhost:3001/types")
+        let jsona = await axios.get("/types")
         return dispatch({
             type: 'GET_TYPES',
             payload: jsona.data
@@ -104,7 +104,7 @@ catch(error) {
 export function getPokeDetail(id){
 return async function(dispatch){
     try {
-        let pokeDetail = await axios.get('http://localhost:3001/pokemons/' + id) //también puede ser ('/characters/' + id)
+        let pokeDetail = await axios.get('/pokemons/' + id) //también puede ser ('/characters/' + id)
         return dispatch({
             type: 'GET_POKE_DETAIL',
             payload: pokeDetail.data
@@ -118,7 +118,7 @@ return async function(dispatch){
 export function getNamePoke(name){
     return async function(dispatch){
         try {
-            var json = await axios.get('http://localhost:3001/?name=' + name)
+            var json = await axios.get('/?name=' + name)
 
             const filteredDat = json.data.map(({ id, idAPI, name, image, hp, speed, attack, weight, height }) => ({ id, idAPI, name, image, hp, speed, attack, weight, height }));
 
@@ -152,7 +152,7 @@ export function getNamePoke(name){
 export function postPokemon(payload){
     return async function(dispatch){
         try { 
-        await axios.post('http://localhost:3001/pokemons', payload); //en esta ruta es donde quiero hacer el post del payload, va como segundo argumento
+        await axios.post('/pokemons', payload); //en esta ruta es donde quiero hacer el post del payload, va como segundo argumento
         return dispatch({
             type: 'POST_POKEMON',
               });
@@ -186,7 +186,7 @@ const filteredArray = data.filter(pokemon => pokemon.types)
 
 return async function(dispatch){
     try {
-        let pokeDetail = await axios.get('http://localhost:3001/pokemons/' + id) //también puede ser ('/characters/' + id)
+        let pokeDetail = await axios.get('/pokemons/' + id) //también puede ser ('/characters/' + id)
         return dispatch({
             type: 'GET_POKE_DETAIL',
             payload: pokeDetail.data

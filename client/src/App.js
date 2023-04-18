@@ -4,6 +4,9 @@ import Home from './components/Home.jsx';
 import PokemonDetail from './components/PokemonDetail';
 import CreatePokemon from './components/CreatePokemon';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import axios from 'axios';
+
+axios.defaults.baseURL= 'http://localhost:3001/'; 
 //import CreateActivity from './Components/CreateActivity.jsx';
 
 function App() {
